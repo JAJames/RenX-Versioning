@@ -17,7 +17,6 @@ update_mirrors() {
 
 # Release branches
 update_mirrors release.json
-update_mirrors server.json
 
 # Staging branches
 update_mirrors beta.json
