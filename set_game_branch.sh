@@ -6,6 +6,7 @@ patches_path="${patches_data_path}"
 echo_output=false
 minify=false
 verbose=false
+product_key=game
 
 function print_help() {
 	echo "Sets the patch path for a given branch."
@@ -49,6 +50,11 @@ do
 		shift
 		shift
 		;;
+  --product-key)
+    product_key="$2"
+    shift
+    shift
+    ;;
 	esac
 done
 
@@ -71,6 +77,7 @@ then
 	echo "    version_path: $version_path"
 	echo "    patch_path: $patch_path"
 	echo "    version_file: $version_file"
+	echo "    product_key: $product_key"
 	echo ""
 fi
 
@@ -83,6 +90,7 @@ function set_branch() {
 	version_file="$1"
 	patch_path="$2"
 	patches_path="$3"
+	product_key="$4"
 	metadata_file="${patches_path}/${patch_path}/metadata.json"
 
 	# Verify version branch exists
@@ -118,14 +126,14 @@ function set_branch() {
 	version_data=$(cat "${version_file}")
 
 	# Set the patch_path
-	version_data=$(echo "${version_data}" | jq ".game.patch_path = \"${patch_path}\"")
+	version_data=$(echo "${version_data}" | jq ".${product_key}.patch_path = \"${patch_path}\"")
 
 	# Set the metadata hash; this is unused for now
-	version_data=$(echo "${version_data}" | jq ".game.metadata_hash = \"${metadata_hash}\"")
+	version_data=$(echo "${version_data}" | jq ".${product_key}.metadata_hash = \"${metadata_hash}\"")
 
-	# Merge in metadata into game
-	game_version_data=$(echo "${version_data}" | jq ".game * ${patch_metadata}")
-	version_data=$(echo "${version_data}" | jq ".game = ${game_version_data}")
+	# Merge in metadata into product
+	product_version_data=$(echo "${version_data}" | jq ".${product_key} * ${patch_metadata}")
+	version_data=$(echo "${version_data}" | jq ".${product_key} = ${product_version_data}")
 
 	# Minify final JSON if specified
 	if $minify
@@ -142,4 +150,4 @@ function set_branch() {
 	fi
 }
 
-set_branch "${version_file}" "${patch_path}" "${patches_path}"
+set_branch "${version_file}" "${patch_path}" "${patches_path}" "${product_key}"

@@ -76,6 +76,8 @@ function map_builds() {
 	referenced_builds=()
 	for version_file in $version_path/*; do
 		version_data=$(cat "$version_file")
+
+		# Read in game build
 		build=$(echo "$version_data" | jq -r ".game.patch_path")
 		build_path="$patches_path/$build"
 
@@ -83,7 +85,15 @@ function map_builds() {
 			referenced_builds+=("$build_path")
 		fi
 
-		echo "$(basename $version_file) -> $build"
+		# Read in SDK build
+		sdk_build=$(echo "$version_data" | jq -r ".sdk.patch_path")
+		sdk_build_path="$patches_path/$sdk_build"
+
+		if [[ ! "${referenced_builds[@]}" =~ "$sdk_build_path" ]]; then
+			referenced_builds+=("$sdk_build_path")
+		fi
+
+		echo "$(basename $version_file) -> Game: ${build}; SDK: ${sdk_build}"
 	done
 
 	if $verbose; then

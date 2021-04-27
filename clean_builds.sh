@@ -84,7 +84,17 @@ function clean_builds() {
 	referenced_builds=()
 	for version_file in $version_path/*; do
 		version_data=$(cat "$version_file")
+
+		# Read in game build
 		build=$(echo "$version_data" | jq -r ".game.patch_path")
+		build_path="$patches_path/$build"
+
+		if [[ ! "${referenced_builds[@]}" =~ "$build_path" ]]; then
+			referenced_builds+=("$build_path")
+		fi
+
+		# Read in SDK build
+		build=$(echo "$version_data" | jq -r ".sdk.patch_path")
 		build_path="$patches_path/$build"
 
 		if [[ ! "${referenced_builds[@]}" =~ "$build_path" ]]; then
