@@ -24,3 +24,4 @@ update_mirrors beta.json
 # Temporary / Alpha testing branches
 update_mirrors alpha.json
 update_mirrors launcher.json
+update_mirrors sdk.json
