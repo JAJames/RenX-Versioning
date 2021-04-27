@@ -1,0 +1,34 @@
+[
+	{
+                "name":  "Constructive Tyranny (Germany)",
+                "url":  "http://rxmirror.ctgamehosts.uk/"
+        },
+	{
+		"name":  "Constructive Tyranny US (Vint Hill, Virginia, USA)",
+		"url":  "http://mirror.us.tyrant.gg/"
+	},
+        {
+                "name":  "Constructive Tyranny US (Piscataway, New Jersey, USA)",
+                "url":  "http://mirror.usa.tyrant.gg/"
+        },
+        {
+                "name":  "iTweek (Germany)",
+                "url":  "http://rxp-de1.ts3-server.ch/"
+        },
+        {
+                "name":  "CnCFPS.com (Los Angeles, CA, USA)",
+                "url":  "http://rxp-lax2.cncfps.com"
+        },
+        {
+                "name":  "TotemArts (Las Vegas, Nevada, USA)",
+                "url":  "http://us-lv.buyvm.renegade-x.com/"
+        },
+        {
+                "name":  "TotemArts (New York, New York, USA)",
+                "url":  "http://us-ny.buyvm.renegade-x.com/"
+        },
+        {
+                "name":  "TotemArts (Roost, Luxembourg, EU)",
+                "url":  "http://eu-lux.buyvm.renegade-x.com/"
+        }
+]
